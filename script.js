@@ -36,8 +36,10 @@ btns.forEach((item) => {
     display_value = item.textContent;
     if (screen.textContent == 0) {
       screen.textContent = display_value;
+      display_value = screen.textContent;
     } else {
       screen.textContent += display_value;
+      display_value = screen.textContent;
     }
   });
 });
@@ -80,3 +82,10 @@ deletee.addEventListener("click", () => {
   // alert(`screen contains ${display_value}`);
   screen.textContent = display_value;
 });
+
+let addButton = document.querySelector("#add");
+let subtractButton = document.querySelector("#subtract");
+let multiplyButton = document.querySelector("#multiply");
+let divideButton = document.querySelector("#divide");
+let evalButton = document.querySelector("#eval");
+addButton.addEventListener("click", () => {});
