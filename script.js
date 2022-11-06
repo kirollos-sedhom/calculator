@@ -15,14 +15,16 @@ function divide(first, second) {
 }
 
 function operate(operatorr, first, second) {
-  if (operatorr == "+") {
+  if (operatorr == "add") {
     return add(first, second);
-  } else if (operatorr == "*") {
+  } else if (operatorr == "multiply") {
     return multiply(first, second);
-  } else if (operatorr == "-") {
+  } else if (operatorr == "subtact") {
     return subtract(first, second);
-  } else if (operatorr == "/") {
+  } else if (operatorr == "divide") {
     return divide(first, second);
+  } else {
+    alert("error occured");
   }
 }
 let clrall = document.querySelector("#clearall");
@@ -45,6 +47,7 @@ btns.forEach((item) => {
 });
 let first = 0;
 let second = 0;
+let flag = "";
 // let operatorss = document.querySelectorAll(".orange");
 // operatorss.forEach((item) => {
 //   item.addEventListener("click", () => {
@@ -87,5 +90,53 @@ let addButton = document.querySelector("#add");
 let subtractButton = document.querySelector("#subtract");
 let multiplyButton = document.querySelector("#multiply");
 let divideButton = document.querySelector("#divide");
+
 let evalButton = document.querySelector("#eval");
-addButton.addEventListener("click", () => {});
+// let first = 0;
+addButton.addEventListener("click", () => {
+  first = display_value;
+  display_value = 0;
+  screen.textContent = display_value;
+  flag = "add";
+});
+multiplyButton.addEventListener("click", () => {
+  first = display_value;
+
+  display_value = 0;
+  screen.textContent = display_value;
+
+  flag = "multiply";
+});
+divideButton.addEventListener("click", () => {
+  first = display_value;
+
+  display_value = 0;
+  screen.textContent = display_value;
+
+  flag = "divide";
+});
+subtractButton.addEventListener("click", () => {
+  first = display_value;
+
+  display_value = 0;
+  screen.textContent = display_value;
+
+  flag = "subtract";
+});
+evalButton.addEventListener("click", () => {
+  second = display_value;
+  if (flag == "add") {
+    display_value = add(parseInt(first), parseInt(second));
+    screen.textContent = "";
+    screen.textContent = display_value;
+  } else if (flag == "multiply") {
+    screen.textContent = multiply(parseInt(first), parseInt(second));
+  } else if (flag == "subtract") {
+    screen.textContent = subtract(parseInt(first), parseInt(second));
+  } else if (flag == "divide") {
+    screen.textContent = divide(parseInt(first), parseInt(second));
+  } else {
+    alert("error occured");
+  }
+  // alert(operate(flag, first, second));
+});
