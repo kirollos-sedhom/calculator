@@ -13,7 +13,7 @@ function multiply(first, second) {
 function divide(first, second) {
   return first / second;
 }
-
+let calculated = false;
 function operate(operatorr, first, second) {
   if (operatorr == "add") {
     return add(first, second);
@@ -36,7 +36,11 @@ btns.forEach((item) => {
   item.addEventListener("click", () => {
     // alert(display_value);
     display_value = item.textContent;
-    if (screen.textContent == 0) {
+    if (calculated == true) {
+      calculated = false;
+      screen.textContent = display_value;
+      display_value = screen.textContent;
+    } else if (screen.textContent == 0 || chain == true) {
       screen.textContent = display_value;
       display_value = screen.textContent;
     } else {
@@ -45,39 +49,16 @@ btns.forEach((item) => {
     }
   });
 });
+let chain = false;
 let first = 0;
 let second = 0;
+let firstoperation = true;
 let flag = "";
-// let operatorss = document.querySelectorAll(".orange");
-// operatorss.forEach((item) => {
-//   item.addEventListener("click", () => {
-//     display_value = screen.textContent;
-//     let operator = item.textContent;
-//     let firstno = display_value;
-//     if (item.textContent == "=") {
-//       // alert(operate(operator, firstno, display_value));
-//       second = screen.textContent;
-//       alert(
-//         `adding ${first} to ${second} equals ${operate(
-//           operator,
-//           parseInt(first),
-//           parseInt(second)
-//         )}`
-//       );
-//       // screen.textContent += operate(operator, first, second);
-//       first = 0;
-//       second = 0;
-//       // alert(operate(operator, first, second));
-//     } else {
-//       display_value = screen.textContent;
-//       first = screen.textContent;
-//       screen.textContent = 0;
-//     }
-//   });
-// });
+
 // clear using ac
 clrall.addEventListener("click", () => {
   display_value = 0;
+
   screen.textContent = 0;
 });
 deletee.addEventListener("click", () => {
@@ -94,12 +75,62 @@ let divideButton = document.querySelector("#divide");
 let evalButton = document.querySelector("#eval");
 // let first = 0;
 addButton.addEventListener("click", () => {
-  first = display_value;
-  display_value = 0;
-  screen.textContent = display_value;
-  flag = "add";
+  if (chain == true) {
+    calculated = true;
+    second = display_value;
+    // chain = false;
+    if (flag == "add") {
+      display_value = add(parseInt(first), parseInt(second));
+      // screen.textContent = display_value;
+      screen.textContent = "";
+      screen.textContent = display_value;
+    } else if (flag == "multiply") {
+      screen.textContent = multiply(parseInt(first), parseInt(second));
+    } else if (flag == "subtract") {
+      screen.textContent = subtract(parseInt(first), parseInt(second));
+    } else if (flag == "divide") {
+      screen.textContent = divide(parseInt(first), parseInt(second));
+    } else {
+      alert("error occured");
+    }
+    first = 0;
+    second = 0;
+    screen.textContent = display_value;
+    flag = "add";
+    // flag = "";
+  } else {
+    chain = true;
+    first = display_value;
+    // display_value = 0;
+    // screen.textContent = display_value;
+    screen.textContent = 0;
+    flag = "add";
+  }
 });
 multiplyButton.addEventListener("click", () => {
+  if (chain == true) {
+    second = display_value;
+    chain = false;
+    if (flag == "add") {
+      display_value = add(parseInt(first), parseInt(second));
+      screen.textContent = "";
+      screen.textContent = display_value;
+    } else if (flag == "multiply") {
+      screen.textContent = multiply(parseInt(first), parseInt(second));
+    } else if (flag == "subtract") {
+      screen.textContent = subtract(parseInt(first), parseInt(second));
+    } else if (flag == "divide") {
+      screen.textContent = divide(parseInt(first), parseInt(second));
+    } else {
+      alert("error occured");
+    }
+    first = 0;
+    second = 0;
+    screen.textContent = display_value;
+
+    // flag = "";
+  }
+  chain = true;
   first = display_value;
 
   display_value = 0;
@@ -108,6 +139,29 @@ multiplyButton.addEventListener("click", () => {
   flag = "multiply";
 });
 divideButton.addEventListener("click", () => {
+  if (chain == true) {
+    second = display_value;
+    chain = false;
+    if (flag == "add") {
+      display_value = add(parseInt(first), parseInt(second));
+      screen.textContent = "";
+      screen.textContent = display_value;
+    } else if (flag == "multiply") {
+      screen.textContent = multiply(parseInt(first), parseInt(second));
+    } else if (flag == "subtract") {
+      screen.textContent = subtract(parseInt(first), parseInt(second));
+    } else if (flag == "divide") {
+      screen.textContent = divide(parseInt(first), parseInt(second));
+    } else {
+      alert("error occured");
+    }
+    first = 0;
+    second = 0;
+    screen.textContent = display_value;
+
+    // flag = "";
+  }
+  chain = true;
   first = display_value;
 
   display_value = 0;
@@ -116,6 +170,29 @@ divideButton.addEventListener("click", () => {
   flag = "divide";
 });
 subtractButton.addEventListener("click", () => {
+  if (chain == true) {
+    second = display_value;
+    chain = false;
+    if (flag == "add") {
+      display_value = add(parseInt(first), parseInt(second));
+      screen.textContent = "";
+      screen.textContent = display_value;
+    } else if (flag == "multiply") {
+      screen.textContent = multiply(parseInt(first), parseInt(second));
+    } else if (flag == "subtract") {
+      screen.textContent = subtract(parseInt(first), parseInt(second));
+    } else if (flag == "divide") {
+      screen.textContent = divide(parseInt(first), parseInt(second));
+    } else {
+      alert("error occured");
+    }
+    first = 0;
+    second = 0;
+    screen.textContent = display_value;
+
+    // flag = "";
+  }
+  chain = true;
   first = display_value;
 
   display_value = 0;
@@ -125,6 +202,7 @@ subtractButton.addEventListener("click", () => {
 });
 evalButton.addEventListener("click", () => {
   second = display_value;
+  chain = false;
   if (flag == "add") {
     display_value = add(parseInt(first), parseInt(second));
     screen.textContent = "";
@@ -138,5 +216,8 @@ evalButton.addEventListener("click", () => {
   } else {
     alert("error occured");
   }
-  // alert(operate(flag, first, second));
+  first = 0;
+  second = 0;
+  calculated = true;
+  flag = "";
 });
